@@ -10,10 +10,6 @@ set (PROJECT_ASSETS_DIR  "${PROJECT_SOURCE_DIR}/assets")
 file(GLOB_RECURSE SOURCES "${PROJECT_SRC_DIR}/*.cpp"
                           "${PROJECT_SRC_DIR}/*.c")
 
-# Include Headers
-include_directories("${PROJECT_INCLUDE_DIR}")
-
-
 
 #### Compilation ####
 
@@ -43,6 +39,8 @@ include_directories(${ENGINE_INCLUDE_DIR})
 
 #### Executable ####
 
+# Include Headers
+include_directories("${PROJECT_INCLUDE_DIR}")
 add_executable(game ${SOURCES})
 
 target_link_libraries(game
