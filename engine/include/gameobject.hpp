@@ -6,6 +6,7 @@
 #include <typeindex>
 #include <typeinfo>
 #include <unordered_map>
+#include <utility>
 
 namespace engine {
 
@@ -49,6 +50,8 @@ public:
 
     inline void set_position(double _x, double _y) { x = _x; y = _y; }
     inline void set_size(double _w, double _h) { w = _w; h = _h; }
+
+    inline std::pair<double, double> get_position() { return std::make_pair(x, y); }
 
     double x, y;
     double w, h;
