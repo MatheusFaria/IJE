@@ -3,6 +3,7 @@
 #include "gameobject.hpp"
 #include "components/image.hpp"
 #include "components/text.hpp"
+#include "components/audio.hpp"
 
 #include "gameglobals.hpp"
 
@@ -27,7 +28,11 @@ int main(int, char**)
 
     auto title_text = TextComponent("UnB - FGA", "assets/fonts/font.ttf", 30,
                                     Color(0x00, 0x00, 0x00));
+
+    auto bg_music = AudioComponent("assets/sounds/music.ogg", true);
+
     title.add_component(title_text);
+    title.add_component(bg_music);
 
     menu.add_game_object(player);
     menu.add_game_object(title);

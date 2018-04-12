@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <utility>
 
+#include "input.hpp"
 #include "scene.hpp"
 #include "sdl2include.h"
 
@@ -38,6 +39,7 @@ public:
 
     inline std::pair<int, int> window_size() { return m_window_size; }
     inline SDL_Renderer * canvas() { return m_canvas; }
+    inline const InputManager & input_manager() const { return m_input_manager; }
 
 private:
     Game()
@@ -58,6 +60,8 @@ private:
     std::unordered_map<std::string, Scene *> m_scenes;
     Scene * m_scene;       // Current Scene
     Scene * m_last_scene;  // Last Scene Played
+
+    InputManager m_input_manager;
 
     bool create_window();
     bool destroy_window();

@@ -154,6 +154,7 @@ void Game::run()
                         m_state = State::exit_loop;
                         break;
                     default:
+                        m_input_manager.gather_input(evt);
                         break;
                 }
             }
@@ -163,6 +164,8 @@ void Game::run()
             SDL_RenderClear(m_canvas);
             m_scene->draw();
             SDL_RenderPresent(m_canvas);
+
+            m_input_manager.clear_input();
         }
 
         INFO("Cleaning up resources...");
