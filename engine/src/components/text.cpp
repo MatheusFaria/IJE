@@ -6,22 +6,6 @@
 
 using namespace engine;
 
-TTF_Font * load_font(std::string path, int size)
-{
-    INFO("Loading new font...");
-
-    auto m_font = TTF_OpenFont(path.c_str(), size);
-
-    if(m_font == NULL)
-    {
-        SDL_TTF_ERROR("Could not load font from path " << path);
-        return NULL;
-    }
-
-    return m_font;
-}
-
-
 bool TextComponent::init()
 {
     INFO("Init TextComponent");
@@ -32,7 +16,7 @@ bool TextComponent::init()
         return false;
     }
 
-    m_font = load_font(m_font_path, m_font_size);
+    m_font = Game::instance.assets_manager().load_font(m_font_path, m_font_size);
 
     if(m_font == NULL) return false;
 

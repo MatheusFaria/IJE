@@ -40,6 +40,7 @@ public:
     inline std::pair<int, int> window_size() { return m_window_size; }
     inline SDL_Renderer * canvas() { return m_canvas; }
     inline const InputManager & input_manager() const { return m_input_manager; }
+    inline AssetsManager & assets_manager() { return m_scene->assets_manager(); }
 
 private:
     Game()

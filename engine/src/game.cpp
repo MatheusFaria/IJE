@@ -242,7 +242,11 @@ bool Game::handle_scene_changes()
                  (m_last_scene ? m_last_scene->name() : "NULL") << " to " <<
                  m_scene->name() << "...");
 
-            if(m_last_scene) m_last_scene->shutdown();
+            if(m_last_scene)
+            {
+                m_last_scene->shutdown();
+                m_last_scene->assets_manager().shutdown();
+            }
 
             m_scene->init();
             m_scene->setup();

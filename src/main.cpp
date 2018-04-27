@@ -6,6 +6,8 @@
 #include "components/audio.hpp"
 
 #include "gameglobals.hpp"
+#include "movesidetoside.hpp"
+#include "move.hpp"
 
 using namespace engine;
 
@@ -20,19 +22,25 @@ int main(int, char**)
     auto player = GameObject("Player");
     player.set_position(100, 100);
 
-    auto playerImage = ImageComponent("assets/sprites/image.png");
+    auto playerImage = ImageComponent("image.png");
     player.add_component(playerImage);
+
+    MoveSideToSide movesidetoside;
+    player.add_component(movesidetoside);
 
     auto title = GameObject("Title");
     title.set_position(250, 250);
 
-    auto title_text = TextComponent("UnB - FGA", "assets/fonts/font.ttf", 30,
+    auto title_text = TextComponent("UnB - FGA", "font.ttf", 30,
                                     Color(0x00, 0x00, 0x00));
 
-    auto bg_music = AudioComponent("assets/sounds/music.ogg", true);
+    auto bg_music = AudioComponent("music.ogg", true);
 
     title.add_component(title_text);
     title.add_component(bg_music);
+
+    Move move;
+    title.add_component(move);
 
     menu.add_game_object(player);
     menu.add_game_object(title);

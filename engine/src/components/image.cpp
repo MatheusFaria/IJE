@@ -6,43 +6,6 @@
 
 using namespace engine;
 
-struct Image {
-    SDL_Texture * texture;
-    unsigned int w;
-    unsigned int h;
-};
-
-Image * load_image(std::string path)
-{
-    INFO("Loading new image...");
-
-    SDL_Surface * image = IMG_Load(path.c_str());
-
-    if (image == NULL)
-    {
-        SDL_IMG_ERROR("Could not load image from path " << path);
-        return NULL;
-    }
-
-    auto m_texture = SDL_CreateTextureFromSurface(Game::instance.canvas(),
-                                                  image);
-
-    if (m_texture == NULL)
-    {
-        SDL_ERROR("Could not create texture from image!");
-        return NULL;
-    }
-
-    Image * img = new Image;
-    img->texture = m_texture;
-    img->w = image->w;
-    img->h = image->h;
-
-    SDL_FreeSurface(image);
-
-    return img;
-}
-
 bool ImageComponent::init()
 {
     INFO("Init ImageComponent");
@@ -53,7 +16,7 @@ bool ImageComponent::init()
         return false;
     }
 
-    auto image = load_image(m_path);
+    auto image = Game::instance.assets_manager().load_image(m_path);
 
     m_texture = image->texture;
     m_w = image->w;

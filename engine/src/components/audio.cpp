@@ -6,42 +6,18 @@
 
 using namespace engine;
 
-Mix_Music * load_music(std::string path)
-{
-    Mix_Music * music = Mix_LoadMUS(path.c_str());
-    if (music == NULL)
-    {
-        SDL_MIX_ERROR("Could not load music from path " << path);
-        return NULL;
-    }
-
-    return music;
-}
-
-Mix_Chunk * load_sound(std::string path)
-{
-    Mix_Chunk * sound = Mix_LoadWAV(path.c_str());
-    if (sound == NULL)
-    {
-        SDL_MIX_ERROR("Could not load sound from path " << path);
-        return NULL;
-    }
-
-    return sound;
-}
-
 bool AudioComponent::init()
 {
     INFO("Init audio component");
 
     if (m_is_music)
     {
-        m_music = load_music(m_path);
+        m_music = Game::instance.assets_manager().load_music(m_path);
         if (m_music == NULL) return false;
     }
     else
     {
-        m_sound = load_sound(m_path);
+        m_sound = Game::instance.assets_manager().load_sound(m_path);
         if (m_sound == NULL) return false;
     }
 
