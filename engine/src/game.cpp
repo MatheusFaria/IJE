@@ -141,6 +141,9 @@ void Game::run()
         }
         else m_state = State::main_loop_change_scene;
 
+        double frame_time = 1000.0 / static_cast<double>(m_fps);
+        m_timer.start();
+
         while(m_state != State::exit_loop)
         {
             if(handle_scene_changes() == false) break;
@@ -166,7 +169,18 @@ void Game::run()
             SDL_RenderPresent(m_canvas);
 
             m_input_manager.clear_input();
+
+            // Frame capping
+            if (frame_time > m_elapsed_time)
+            {
+                SDL_Delay(frame_time - m_elapsed_time);
+            }
+
+            m_elapsed_time = m_timer.elapsed_time();
+            m_timer.step();
         }
+
+        m_timer.stop();
 
         INFO("Cleaning up resources...");
         if(m_scene) m_scene->shutdown();

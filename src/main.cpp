@@ -3,6 +3,8 @@
 #include "gameobject.hpp"
 #include "components/image.hpp"
 #include "components/text.hpp"
+#include "components/animation.hpp"
+#include "components/animation_controller.hpp"
 #include "components/audio.hpp"
 
 #include "gameglobals.hpp"
@@ -25,9 +27,6 @@ int main(int, char**)
     auto playerImage = ImageComponent("image.png");
     player.add_component(playerImage);
 
-    MoveSideToSide movesidetoside;
-    player.add_component(movesidetoside);
-
     auto title = GameObject("Title");
     title.set_position(250, 250);
 
@@ -42,8 +41,31 @@ int main(int, char**)
     Move move;
     title.add_component(move);
 
+
+    GameObject boy("Boy");
+    boy.set_position(20, 20);
+
+    AnimationControllerComponent animCtrl;
+
+    AnimationComponent boyAnimation("boy.png", 8, 2, 1.0, true);
+    boyAnimation.set_end_frame(7);
+    animCtrl.add_animation("running right", boyAnimation);
+
+    AnimationComponent boyAnimation2("boy.png", 8, 2, 1.0, true);
+    boyAnimation2.set_frame_range(8, 15);
+    animCtrl.add_animation("running left", boyAnimation2);
+
+    MoveSideToSide movesidetoside;
+
+    boy.add_component(movesidetoside);
+    boy.add_component(boyAnimation);
+    boy.add_component(boyAnimation2);
+    boy.add_component(animCtrl);
+
+
     menu.add_game_object(player);
     menu.add_game_object(title);
+    menu.add_game_object(boy);
 
     Game::instance.add_scene(menu);
 
