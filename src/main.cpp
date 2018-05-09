@@ -21,14 +21,14 @@ int main(int, char**)
     // Setup scenes
     Scene menu("Main Menu");
 
-    auto player = GameObject("Player");
-    player.set_position(100, 100);
+    auto player = GameObject("Player", 1, 0);
+    player.set_position(0, 0);
 
     auto playerImage = ImageComponent("image.png");
     player.add_component(playerImage);
 
-    auto title = GameObject("Title");
-    title.set_position(250, 250);
+    auto title = GameObject("Title", 1, 0);
+    title.set_position(10, 10);
 
     auto title_text = TextComponent("UnB - FGA", "font.ttf", 30,
                                     Color(0x00, 0x00, 0x00));
@@ -41,9 +41,10 @@ int main(int, char**)
     Move move;
     title.add_component(move);
 
+    player.set_parent(title);
 
-    GameObject boy("Boy");
-    boy.set_position(20, 20);
+    GameObject boy("Boy", 0, 0);
+    boy.set_position(10, 10);
 
     AnimationControllerComponent animCtrl;
 
